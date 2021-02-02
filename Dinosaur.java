@@ -1,4 +1,4 @@
-package Dinosaur1;
+ 
 
 
 /**
@@ -163,9 +163,14 @@ public abstract class Dinosaur
         double hFactor = this.health/100.0;
         hFactor *= 0.67;
         
-        double expFactor = (double)this.battleCount/(this.battleCount + other.getBattleCount());
-        expFactor *= 0.33;
-        
+        double expFactor;
+        if( this.battleCount + other.getBattleCount() > 0)
+        {
+            expFactor = (double)this.battleCount/(this.battleCount + other.getBattleCount());
+            expFactor *= 0.33;
+        }
+        else
+            expFactor = 0;
         answer = hFactor + expFactor;
         
         return answer;

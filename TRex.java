@@ -1,4 +1,4 @@
-package Dinosaur1;
+ 
 
 
 /**
@@ -26,26 +26,51 @@ public class TRex extends Dinosaur
     
     public boolean attack(Dinosaur other)
     {
-        // Code this method such that if other is a TRex, this wins
-        // 50%. If other is Velo, this wins 60%, if a brona, this wins
-        // 75%. 
-        boolean result = false;
-        if(other.getType().equals("TRex"))
+        
+        int myRand = (int)(Math.random()*40)+60;
+        int otherRand;
+        
+        int myWeighting;
+        int otherWeighting; 
+        
+        double temp; 
+        
+        
+        if(other.getType().equals("TRex")) // TRex vs TRex
         {    
-            if(Math.random()>0.5)
-                result = true;
+            otherRand = (int)(Math.random()*40)+55;
         }
-        else if(other.getType().equals("Velo"))
+        else if(other.getType().equals("Velo")) // TRex vs Velo
         {
-             if(Math.random()>0.4)
-                result = true;
+              otherRand = (int)(Math.random()*40)+55;
         }
         else if (other.getType().equals("bronta"))
         {
-             if(Math.random()>0.25)
-                result = true;
+              otherRand = (int)(Math.random()*40)+40;
         }
-        return result; 
+        else 
+            otherRand = (int)(Math.random()* 50);
+        
+        temp = myRand * this.getBattleFactor(other)+0.5;
+        myWeighting = (int)(temp);
+        temp = otherRand * other.getBattleFactor(this) + 0.5;
+        otherWeighting = (int)(temp);
+        
+        System.out.println("\tMy weighting: "+myWeighting);
+        System.out.println("\tOther weighting: "+otherWeighting);        
+        
+        
+        if( myWeighting - otherWeighting  > -1)
+        {
+            this.update(other);
+            return true;
+            
+        }
+        else
+        {    
+            other.update(this);
+            return false;
+        }
     }
     
 
@@ -57,6 +82,6 @@ public class TRex extends Dinosaur
      */
     public String toString()
     {
-       return this.getType()+" "+ this.getWins() +" "+ this.getBattleCount();
+       return this.getType()+" "+ this.getWins() +" "+ this.getBattleCount()+ "  "+this.getHealth();
     }
 }
